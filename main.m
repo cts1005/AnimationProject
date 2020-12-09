@@ -439,7 +439,10 @@ for i = 1:3
 end
 delete(h_redgoomba);
 % Morph back into mario
-Jmario = MorphC(redgoomba, Jmario, hb, .01); 
+redgoomba = translateC(redgoomba, 0, 1000);
+Jmario = translateC(Jmario, 0, 1000);
+% Transitions from redgoomba to Tim's holder image off screen;
+Holder = MorphC(redgoomba, Jmario, hb, 0); 
 % end
 
 %% SCENE 2 - Tim

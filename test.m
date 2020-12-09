@@ -23,8 +23,8 @@ hi = imagesc(bg(400:1000,1:600, 1:3));
 hb = axes('position',[0 0 1 1]);
 set(ha,'handlevisibility','on', 'visible','off');
 hold on; 
-% scaling
 
+% scaling
 mushroom = scaleC(mushroom, 1/8, 1/8);
 Jmario = scaleC(Jmario, .3, .3);
 goomba = scaleC(goomba, .2, .2);
@@ -47,7 +47,6 @@ pause(.2)
 % Mario does a flip in and air and lands back down (3 seconds)
 % Mario shifts and rotates
 % Asset(s): Jumping Mario, Mushroom
-% R = [cos(pi/18) -sin(pi/18) 0; sin(pi/18) cos(pi/18) 0; 0 0 1];
 for i = 1:12
      Jmario = translateC(Jmario, 0, 30);
      Jmario = rotateC(Jmario, pi/12);
@@ -70,7 +69,6 @@ pause(.2);
 % Mario stands in place and Mushroom shimmies offscreen (3 seconds)      
 % Mushroom shifts offscreen (shifts)
 % Asset(s): jumping Mario, Mushroom
-% pause(1.5)
 for i = 1:12
     mushroom = translateC(mushroom, 50, 0);
     delete(h_mushroom);
@@ -213,6 +211,7 @@ for i = 1:4
     h_Jmario = scatter(hb, Jmario(1, :), Jmario(2, :), 'r.');  
     pause(.1)
 end
+
 % repeats the same jump up the stairs. 
 for i = 1:4
     clf
@@ -368,8 +367,7 @@ delete(h_mushroom);
 delete(h_Jmario);
 [Jmario, redgoomba] = SizeMatchC(Jmario, redgoomba);
 redgoomba= MorphC(Jmario, redgoomba, hb, .2); 
-% delete(redgoomba);
-% delete(h_redgoomba);
+
 clf
 % Goomba Mario stops and wobbles in place, and proceeds toward the end of level (4 seconds)
 % Goomba Mario  Reflections and shifts after
@@ -402,8 +400,6 @@ end
 for i = 1:3
     if i == 1
         R = [1 0 0; 0 .75 0; 0 0 1];
-        redgoomba = R*redgoomba;
-%         redgoomba = scaleC(redgoomba, 1/2, 1);
         redgoomba = translateC(redgoomba, 0, 90);
     elseif i == 2
         redgoomba = scaleC(redgoomba, 1/2, 1);
@@ -418,5 +414,8 @@ for i = 1:3
 end
 delete(h_redgoomba);
 % Morph back into mario
-Jmario = MorphC(redgoomba, Jmario, hb, .01); 
+redgoomba = translateC(redgoomba, 0, 1000);
+Jmario = translateC(Jmario, 0, 1000);
+% Transitions from redgoomba to Tim's holder image off screen;
+Holder = MorphC(redgoomba, Jmario, hb, 0); 
 % end
